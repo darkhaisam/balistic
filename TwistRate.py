@@ -13,4 +13,5 @@ __version__='0.1'
 print 'Balistic Tools'
 parser=argparse.ArgumentParser(description=UtilName)
 parser.add_argument('-v','--version', action='version', version='Balistic Tools ' '%(prog)s ' +'version '+ __version__)
+parser.add_argument('-V','--velocity', type=int, required=True, help='Velocity bullet')
 args = parser.parse_args()
