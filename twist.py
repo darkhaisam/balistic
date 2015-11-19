@@ -21,6 +21,7 @@ parser.add_argument('-D', '--dbullet', type=float, required=True, help='Diametr 
 parser.add_argument('-L', '--lbullet', type=float, help='Length bullet (in)')
 parser.add_argument('-T', '--twist', type=float, help='Twist range')
 parser.add_argument('-g', '--greenhill', action='store_true', help='Use formula of Greenhill ')
+parser.add_argument('-s', '--SierraBullets', action='store_true', help='Use formula of Sierra Bullets')
 
 args = parser.parse_args()
 
@@ -50,9 +51,23 @@ def formula_greenhill():
     elif args.lbullet is not None:
         print 'Optimal Rifling Twist Rate ' + str(m_twist_rate()) + ' in.'
     elif args.twist is not None:
-        print  'Optimal Bullet lenght is  ' + str(m_lenght_bullet()) + ' in.'
+        print 'Optimal Bullet lenght is  ' + str(m_lenght_bullet()) + ' in.'
     return ()
 
 
+def formula_SierraBullets():
+    if args.lbullet is None and args.twist is None:
+        print 'Option -T twist range or -L lenght bullet must by used'
+        exit()
+    elif args.lbullet is not None:
+        print 'Optimal Rifling Twist Rate ' + str(
+            round(((0.06 * args.velocity * pow(args.dbullet, 2)) / args.lbullet), 2)) + ' in.'
+    elif args.twist is not None:
+        print 'Optimal Bullet lenght is  ' + str() + ' in.'
+    return ()
+
 if args.greenhill is True:
     formula_greenhill()
+
+elif args.SierraBullets is True:
+    formula_SierraBullets()
