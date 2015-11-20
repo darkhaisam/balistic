@@ -19,11 +19,12 @@ parser.add_argument('-v', '--version', action='version',
 parser.add_argument('-V', '--velocity', type=int, required=True, help='Velocity bullet (ft/s)')
 parser.add_argument('-D', '--dbullet', type=float, required=True, help='Diametr  bullet (in)')
 parser.add_argument('-L', '--lbullet', type=float, help='Length bullet (in)')
-parser.add_argument('-T', '--twist', type=float, help='Twist range')
+parser.add_argument('-T', '--twist', type=float, help='Twist range in in.')
 parser.add_argument('-g', '--greenhill', action='store_true', help='Use formula of Greenhill ')
 parser.add_argument('-s', '--SierraBullets', action='store_true', help='Use formula of Sierra Bullets')
 
 args = parser.parse_args()
+
 
 def formula_greenhill():
     cb = 150  # Constant Greenhiil by Default
@@ -34,7 +35,6 @@ def formula_greenhill():
         cb = 150
     elif args.velocity > 2800:
         cb = 180
-
 
     if args.lbullet is None and args.twist is None:
         print 'Option -T twist range or -L lenght bullet must by used'
@@ -48,8 +48,7 @@ def formula_greenhill():
     return ()
 
 
-def formula_SierraBullets():
-
+def formula_sierra_bullets():
     if args.lbullet is None and args.twist is None:
         print 'Option -T twist range or -L lenght bullet must by used'
         exit()
@@ -61,8 +60,9 @@ def formula_SierraBullets():
         print 'Optimal Bullet lenght is  ' + str(s_lbullet) + ' in.'
     return ()
 
-if args.greenhill is True:
+
+if args.greenhill or not args.SierraBullets:
     formula_greenhill()
 
-elif args.SierraBullets is True:
-    formula_SierraBullets()
+elif args.SierraBullets:
+    formula_sierra_bullets()
