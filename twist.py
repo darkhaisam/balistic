@@ -25,45 +25,40 @@ parser.add_argument('-s', '--SierraBullets', action='store_true', help='Use form
 
 args = parser.parse_args()
 
-if args.velocity <= 0:
-    print "Error velocity option"
-    exit()
-elif args.velocity <= 2800:
-    C = 150
-elif args.velocity > 2800:
-    C = 180
-
-
-def m_twist_rate():
-    v_twist_rate = round(((C * pow(args.dbullet, 2)) / args.lbullet), 2)
-    return (v_twist_rate)
-
-
-def m_lenght_bullet():
-    v_lbullets = round(((C * pow(args.dbullet, 2)) / args.twist), 2)
-    return (v_lbullets)
-
-
 def formula_greenhill():
+    cb = 150  # Constant Greenhiil by Default
+    if args.velocity <= 0:
+        print "Error velocity option"
+        exit()
+    elif args.velocity <= 2800:
+        cb = 150
+    elif args.velocity > 2800:
+        cb = 180
+
+
     if args.lbullet is None and args.twist is None:
         print 'Option -T twist range or -L lenght bullet must by used'
         exit()
     elif args.lbullet is not None:
-        print 'Optimal Rifling Twist Rate ' + str(m_twist_rate()) + ' in.'
+        g_twist = round(((cb * pow(args.dbullet, 2)) / args.lbullet), 2)
+        print 'Optimal Rifling Twist Rate ' + str(g_twist) + ' in.'
     elif args.twist is not None:
-        print 'Optimal Bullet lenght is  ' + str(m_lenght_bullet()) + ' in.'
+        g_lbullet = round(((cb * pow(args.dbullet, 2)) / args.twist), 2)
+        print 'Optimal Bullet lenght is  ' + str(g_lbullet) + ' in.'
     return ()
 
 
 def formula_SierraBullets():
+
     if args.lbullet is None and args.twist is None:
         print 'Option -T twist range or -L lenght bullet must by used'
         exit()
     elif args.lbullet is not None:
-        print 'Optimal Rifling Twist Rate ' + str(
-            round(((0.06 * args.velocity * pow(args.dbullet, 2)) / args.lbullet), 2)) + ' in.'
+        s_twist = round(((0.06 * args.velocity * pow(args.dbullet, 2)) / args.lbullet), 2)
+        print 'Optimal Rifling Twist Rate Sierra Bullet ' + str(s_twist) + ' in.'
     elif args.twist is not None:
-        print 'Optimal Bullet lenght is  ' + str() + ' in.'
+        s_lbullet = round(((0.06 * args.velocity * pow(args.dbullet, 2)) / args.twist), 2)
+        print 'Optimal Bullet lenght is  ' + str(s_lbullet) + ' in.'
     return ()
 
 if args.greenhill is True:
