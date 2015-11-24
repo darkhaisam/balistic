@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Class bullet
 
+import math
 
 class Bullet:
     """
@@ -14,7 +15,6 @@ class Bullet:
         self.mass = 0
         self.velocity = 0
         self.rpm = 0
-        self.bc_g1 = 0
         self.stability = 0  ## Stability factor
 
     def get_rpm(self, twist):
@@ -34,9 +34,16 @@ class Bullet:
         except:
             print "Error in function get_bullet_length"
 
-    def get_BC_G1(self):
-        self.bc_g1 = 0
-        return ()
+    def get_stability_factor(self, twist):
+        try:
+            l = self.lenght / self.diametr
+            __stability = (30 * self.mass) / (pow(twist, 2) * pow(self.diametr, 3) * l * (1 + pow(l, 2)))
+            __stability = round(__stability, 2)
+            return (__stability)
+        except:
+            print "Error on function get_stability_factor "
+
+
 
     def show_attr(self):
         print "Caliber - " + str(self.diametr)
@@ -49,12 +56,14 @@ class Barrel:
     def __init__(self):
         self.twist = 0
 
-    def get_optimal_twist(self, velocity=0, diametr=0, lenght=0):
+    def get_optimal_twist(self, velocity=0, diametr=0, lenght=0, mass=0, stability=0):
         """"
-        This function calculates the optimal step rifling according to the formula Sierra Bullets
+        This function calculates the optimal step rifling according to the Miller twist rule
         """""
         try:
-            __twist = round(((0.06 * velocity * pow(diametr, 2)) / lenght), 2)
+            l = lenght / diametr
+            __twist = math.sqrt((30 * mass) / ((stability * diametr * l) * (1 + pow(l, 2))))
+            __twist = round(__twist, 2)
             return (__twist)
         except:
             print "Error in function get_optimal_twist"
@@ -62,5 +71,5 @@ class Barrel:
 
 class Meteo:
     def __init__(self):
-        self.temperature = 0
-        self.pressure = 0
+        self.temperature = 59
+        self.pressure = 29.92
