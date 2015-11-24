@@ -21,8 +21,9 @@ b.twist = 12
 
 print("Начальная скорость - " + str(a.velocity))
 print "Угловая скорость равняется - fps = " + str(a.get_rpm(b.twist))
-print "Оптимальный шаг нарезов ствола для пули длинной " + str(a.lenght) + ' in. равна ' + str(
-    b.get_optimal_twist(a.velocity, a.diametr, a.lenght, a.mass, a.stability))
+print "Оптимальный шаг нарезов ствола для пули длинной " + str(
+    a.lenght) + ' in. и занном факторе гироскопической стабильности SG ' + str(a.stability) + ' равна ' + str(
+    b.get_optimal_twist(a.diametr, a.lenght, a.mass, a.stability))
 print("Оптимальная длина пули для ствола с шагом нарезов  ") + str(b.twist) + " равняеться " + str(
     a.get_bullet_length(b.twist))
 print ("Фактор гироскопической стабильности Sg равняется ") + str(a.get_stability_factor(b.twist))

@@ -36,9 +36,10 @@ class Bullet:
 
     def get_stability_factor(self, twist):
         try:
-            l = self.lenght / self.diametr
-            __stability = (30 * self.mass) / (pow(twist, 2) * pow(self.diametr, 3) * l * (1 + pow(l, 2)))
-            __stability = round(__stability, 2)
+            __l = self.lenght / self.diametr
+            __t = twist / self.diametr
+            __stability = (30 * self.mass) / (pow(__t, 2) * pow(self.diametr, 3) * __l * (1 + pow(__l, 2)))
+            __stability = round(__stability, 3)
             return (__stability)
         except:
             print "Error on function get_stability_factor "
@@ -56,7 +57,7 @@ class Barrel:
     def __init__(self):
         self.twist = 0
 
-    def get_optimal_twist(self, velocity=0, diametr=0, lenght=0, mass=0, stability=0):
+    def get_optimal_twist(self, diametr=0, lenght=0, mass=0, stability=0):
         """"
         This function calculates the optimal step rifling according to the Miller twist rule
         """""
@@ -67,7 +68,6 @@ class Barrel:
             return (__twist)
         except:
             print "Error in function get_optimal_twist"
-
 
 class Meteo:
     def __init__(self):
