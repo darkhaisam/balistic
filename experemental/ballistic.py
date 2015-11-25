@@ -30,7 +30,7 @@ class Bullet:
         The function calculates the optimum length for a given bullet twist rifling formula Sierra Bullets
         """""
         try:
-            __lenght = round(((0.06 * self.velocity * pow(self.diametr, 2)) / twist), 2)
+            __lenght = round(((0.06 * self.velocity * pow(self.diametr, 2, 0)) / twist), 2)
             return (__lenght)
         except:
             print "Error in function get_bullet_length"
@@ -39,13 +39,17 @@ class Bullet:
         try:
             __l = self.lenght / self.diametr
             __t = twist / self.diametr
+            # Расчитываем фактор гироскопической стабильности при стандартных параметрах №
             __stability = (30 * self.mass) / (pow(__t, 2) * pow(self.diametr, 3) * __l * (1 + pow(__l, 2)))
-            __stability = __stability * (pow((self.velocity / 2800), (1 / 3))) * (((temperature + 460) / (59 + 460)) * (
-                29.92 / pressure))
+            # Рассчитываем фактор гироскопической стабильности с учетом скорости пули
+            __stability *= (pow((self.velocity / 2800.0), 1.00 / 3.00))
+            # Рассчет фактора с учетом температуры и давлениря
+            __stability *= ((temperature + 460) / (59 + 460)) * (29.92 / pressure)
             __stability = round(__stability, 3)
             return (__stability)
         except:
             print "Error on function get_stability_factor "
+
 
 class Barrel:
     def __init__(self):
