@@ -1,8 +1,9 @@
-##!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Class bullet
 
 import math
+
 
 class Bullet:
     """
@@ -34,24 +35,17 @@ class Bullet:
         except:
             print "Error in function get_bullet_length"
 
-    def get_stability_factor(self, twist):
+    def get_stability_factor(self, twist, pressure, temperature):
         try:
             __l = self.lenght / self.diametr
             __t = twist / self.diametr
             __stability = (30 * self.mass) / (pow(__t, 2) * pow(self.diametr, 3) * __l * (1 + pow(__l, 2)))
+            __stability = __stability * (pow((self.velocity / 2800), (1 / 3))) * (((temperature + 460) / (59 + 460)) * (
+                29.92 / pressure))
             __stability = round(__stability, 3)
             return (__stability)
         except:
             print "Error on function get_stability_factor "
-
-
-
-    def show_attr(self):
-        print "Caliber - " + str(self.diametr)
-        print "Lenght - " + str(self.lenght)
-        print "Velocity - " + str(self.velocity)
-        print "RPM - " + str(self.rpm)
-
 
 class Barrel:
     def __init__(self):
@@ -68,6 +62,7 @@ class Barrel:
             return (__twist)
         except:
             print "Error in function get_optimal_twist"
+
 
 class Meteo:
     def __init__(self):
