@@ -42,10 +42,10 @@ class Bullet:
             # Расчитываем фактор гироскопической стабильности при стандартных параметрах №
             __stability = (30 * self.mass) / (pow(__t, 2) * pow(self.diametr, 3) * __l * (1 + pow(__l, 2)))
             # Рассчитываем фактор гироскопической стабильности с учетом скорости пули
-            __stability *= (pow((self.velocity / 2800.0), 1.00 / 3.00))
-            # Рассчет фактора с учетом температуры и давлениря
+            __stability *= (pow((self.velocity / 2800), 1.00 / 3.00))
+            # Рассчет фактора с учетом температуры и давления
             __stability *= ((temperature + 460) / (59 + 460)) * (29.92 / pressure)
-            __stability = round(__stability, 3)
+            __stability = round(__stability, 5)
             return (__stability)
         except:
             print "Error on function get_stability_factor "

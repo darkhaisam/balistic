@@ -13,10 +13,15 @@ def fps_to_mps(fps):
     return (__mps)
 
 def gramm_to_grain(gramm):
-    __grain = gramm * 15.4324
+    __grain = round(gramm * 15.4324, 0)
     return (__grain)
 
 
 def mm_to_in(mm):
-    __in = mm * 0.0393701
+    __in = round(mm * 0.0393701, 3)
     return (__in)
+
+
+def temperature_C_to_F(C):
+    __F = C * (9.0 / 5.0) + 32
+    return (__F)

@@ -13,7 +13,7 @@ __version__ = '1.1 Beta'
 
 parser = argparse.ArgumentParser(description=UtilName + __version__)
 parser.add_argument('-m', '--metric', action='store_true', help=' Use for metric unit')
-parser.add_argument('-V', '--velocity', type=int, required=True, help='Velocity bullet ')
+parser.add_argument('-V', '--velocity', type=float, required=True, help='Velocity bullet ')
 parser.add_argument('-D', '--dbullet', type=float, required=True, help='Diametr bullet')
 parser.add_argument('-L', '--lbullet', type=float, help='Length bullet ')
 parser.add_argument('-SG', '--stability', type=float, help='Factor Gyroscopic Stabilit ')
@@ -31,17 +31,29 @@ b = ballistic.Barrel()
 m = ballistic.Meteo()
 
 # Описываем пулю, ствол, метеоусловия
+if args.metric:
+    a.velocity = convert.mps_to_fps(args.velocity)
+    a.diametr = convert.mm_to_in(args.dbullet)
+    a.lenght = convert.mm_to_in(args.lbullet)
+    a.stability = args.stability
+    a.mass = convert.gramm_to_grain(args.mass)
 
-a.velocity = args.velocity
-a.diametr = args.dbullet
-a.lenght = args.lbullet
-a.stability = args.stability
-a.mass = args.mass
+    b.twist = convert.mm_to_in(args.twist)
 
-b.twist = args.twist
+    m.pressure = args.pressure
+    m.temperature = convert.temperature_C_to_F(args.temperature)
+else:
+    a.velocity = args.velocity
+    a.diametr = args.dbullet
+    a.lenght = args.lbullet
+    a.stability = args.stability
+    a.mass = args.mass
 
-m.pressure = args.pressure
-m.temperature = args.temperature
+    b.twist = args.twist
+
+    m.pressure = args.pressure
+    m.temperature = args.temperature
+
 
 if args.verbose:
     print("Заданная начальная скорость пули - " + str(a.velocity)) + ' fps ( ' + str(
