@@ -19,7 +19,7 @@ a.mass = 168
 
 b.twist = 12
 
-print("Начальная скорость - " + str(a.velocity))
+print("Начальная скорость - " + str(a.velocity)) + ' fps'
 print "Угловая скорость равняется - fps = " + str(a.get_rpm(b.twist))
 print "Оптимальный шаг нарезов ствола для пули длинной " + str(
     a.lenght) + ' in. и занном факторе гироскопической стабильности SG ' + str(a.stability) + ' равна ' + str(
