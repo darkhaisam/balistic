@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Class bullet
+# Class bullet barrel and meteo
 
 import math
 
@@ -36,10 +36,18 @@ class Bullet:
             print "Error in function get_bullet_length"
 
     def get_stability_factor(self, twist, pressure, temperature):
+        '''
+        Расчет производится по правилам нареза Миллера
+        https://en.wikipedia.org/wiki/Miller_twist_rule
+        :param twist: Шаг нарезов ствола
+        :param pressure: Давлегние окружающей стреды
+        :param temperature: Температура окружаюшего воздуха
+        :return:
+        '''
         try:
             __l = self.lenght / self.diametr
             __t = twist / self.diametr
-            # Расчитываем фактор гироскопической стабильности при стандартных параметрах №
+            # Расчитываем фактор гироскопической стабильности при стандартных параметрах
             __stability = (30 * self.mass) / (pow(__t, 2) * pow(self.diametr, 3) * __l * (1 + pow(__l, 2)))
             # Рассчитываем фактор гироскопической стабильности с учетом скорости пули
             __stability *= (pow((self.velocity / 2800), 1.00 / 3.00))
@@ -56,9 +64,9 @@ class Barrel:
         self.twist = 0
 
     def get_optimal_twist(self, diametr=0, lenght=0, mass=0, stability=0):
-        """"
+        """
         This function calculates the optimal step rifling according to the Miller twist rule
-        """""
+        """
         try:
             l = lenght / diametr
             __twist = math.sqrt((30 * mass) / ((stability * diametr * l) * (1 + pow(l, 2))))

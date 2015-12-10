@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Converter unit for ballistic calculator
+# Converter unit for ballistics calculator
 
 
 def mps_to_fps(mps):
